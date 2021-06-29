@@ -1,5 +1,5 @@
 check_if_docker_installed:
-	pkg.installed:
+  pkg.installed:
     - pkgs:
       - docker
 
