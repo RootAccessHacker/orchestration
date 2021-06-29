@@ -8,7 +8,7 @@ install_docker_key:
 
 add_docker_repo:
   cmd.run:
-    - name: add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable\"
+    - name: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 
 update_repo:
   cmd.run:
