@@ -44,10 +44,10 @@ sleep 5
 
 # More specific configuration
 if [ $choice == "1" ]; then
-    sudo salt "$host_name" state.apply deploy-wordpress
+    sudo salt "$host_name" state.apply configure-wordpress
 
 elif [ $choice == "2" ]; then
-    sudo salt "$host_name" state.apply deploy-docker
+    sudo salt "$host_name" state.apply configure-docker
 else 
     echo "Exiting."
     exit
