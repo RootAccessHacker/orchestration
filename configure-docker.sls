@@ -16,7 +16,7 @@ update_repo:
 
 install_docker:
   pkg.installed:
-    pkgs:
+    - pkgs:
       - docker-ce
 
 check_docker_status:
