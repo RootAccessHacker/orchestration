@@ -1,6 +1,10 @@
 install_dependencies:
-  cmd.run:
-    - name: apt install apt-transport-https ca-certificates software-properties-common
+  pkg.installed:
+    - pkgs:
+      - name:
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
 
 install_docker_key:
   cmd.run:
