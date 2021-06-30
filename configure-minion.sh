@@ -14,7 +14,7 @@ read -r account_name
 
 # RCE initiate saltstack install + point to master in config
 echo "Sending payload to minion"
-ssh -t $account_name@$ip "curl -L https://bootstrap.saltstack.com -o install_salt.sh ~/ && sudo sh ~/install_salt.sh && sudo sed -i \"s/#master: salt/master: 192.168.90.131/\" /etc/salt/minion && sudo systemctl restart salt-minion"
+ssh -t $account_name@$ip "sudo apt install curl; curl -L https://bootstrap.saltstack.com -o install_salt.sh ~/; sudo sh ~/install_salt.sh && sudo sed -i \"s/#master: salt/master: 192.168.90.131/\" /etc/salt/minion && sudo systemctl restart salt-minion"
 
 sleep 20
 
