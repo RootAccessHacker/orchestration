@@ -5,4 +5,4 @@ check_if_wordpress_installed:
 
 restart_services:
   cmd.run:
-    - name: systemctl restart wordpress
+    - name: systemctl restart apache2
