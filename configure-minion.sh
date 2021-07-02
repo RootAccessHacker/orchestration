@@ -44,7 +44,38 @@ sleep 5
 
 # More specific configuration
 if [ $choice == "1" ]; then
+
     sudo salt "$host_name" state.apply configure-wordpress
+    
+    echo "Enter a database name:"
+    read -r dbname
+
+    echo "Enter a database username:"
+    read -r dbuser
+
+    echo "Enter a database user password:"
+    read -r dbpass
+
+    echo "Enter root password to make installation easier:"
+    read -sp pass
+
+
+    sudo ssh -t $account_name@$ip "sudo mv /var/www/html/wp-config-sample.php /etc/wordpress/config-${ip}.php"
+    
+    sudo ssh -t $account_name@$ip "sudo sed -i -e 's/database_name_here/${dbname}/' /etc/wordpress/config-${ip}.php"
+    sudo ssh -t $account_name@$ip "sudo sed -i -e 's/username_here/${dbuser}/' /etc/wordpress/config-${ip}.php"
+    sudo ssh -t $account_name@$ip "sudo sed -i -e 's/password_here/${dbpass}/' /etc/wordpress/config-${ip}.php"
+
+
+    echo -e "\nConfiguration complete, resuming to database creation...\n"
+    sleep 3
+
+
+    sudo ssh -t $account_name@$ip "sudo mariadb -u root -p ${pass} -e 'CREATE DATABASE ${dbname};'"
+    sudo ssh -t $account_name@$ip "sudo mariadb -u root -p ${pass} -e 'CREATE USER "${dbuser}"@"%" IDENTIFIED BY "${dbpass}";'"
+    sudo ssh -t $account_name@$ip "sudo mariadb -u root -p ${pass} -e 'GRANT ALL PRIVILEGES ON ${dbname}.* TO "${dbuser}"@"%";'"
+
+
 
 elif [ $choice == "2" ]; then
     sudo salt "$host_name" state.apply configure-docker
